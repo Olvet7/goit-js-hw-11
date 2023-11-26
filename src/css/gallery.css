@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.search-form {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  z-index: 999;
+  width: 100%;
+  height: 40px;
+  background: rgba(23, 46, 183, 0.7);
+  height: 43px;
+  box-shadow: 0 5pt 3pt #D3D3D3;
+}
+
+.search-input {
+  border: 0.5px solid 000;
+  padding: 7px 5px 7px 10px; 
+  width: 200px;
+  height: 28px;
+  background-color: #fff;
+  border-radius: 5px 0 0 5px;
+  border: none;
+  width: 20%;
+  height: 17px;
+  outline:none;
+}
+
+.icon {
+  fill: black;
+  padding: 4px 4px;
+}
+
+.submitBtn {
+  bottom: 10px;
+  border-radius: 0 5px 5px 0;
+  border: none;
+} 
+
+.search-input :focus {
+  border: none;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  outline-color: #933939; /* Замініть 'yourColor' на ваш колір */
+  outline-style: solid;
+  outline-width: 2px; /* Змініть товщину обводки за потреби */
+}
+
+.load-more {
+  border: none;
+  color: #fff;
+  background: rgba(23, 46, 183, 0.7);
+  display: inline;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  height: 30px;
+  width: 10%;
+  position: absolute;
+  bottom: 30px;
+}
+
+
+.policy {
+  padding-left: 20px;
+}

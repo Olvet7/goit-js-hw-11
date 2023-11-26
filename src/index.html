@@ -4,14 +4,35 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homework 8</title>
-    <link rel="stylesheet" href="css/common.css" />
+    <title>SimpleLightbox library</title>
+    <link rel="stylesheet" href="/src/css/gallery.css" />
   </head>
   <body>
-    <ul>
-      <li><a href="01-gallery.html">Image gallery</a></li>
-      <li><a href="02-video.html">Video playback</a></li>
-      <li><a href="03-feedback.html">Feedback form</a></li>
-    </ul>
+    <div class="container">
+      <form class="search-form" id="search-form">
+        <input
+          class="search-input"
+          type="text"
+          name="searchQuery"
+          autocomplete="off"
+          placeholder="Search images..."
+        />
+        <button type="submit" class="submitBtn js-submitBtn">
+          <svg class="icon" width="18" height="18">
+            <use href="./icon.svg#icon"></use>
+          </svg>
+        </button>
+      </form>
+
+      <div class="gallery">
+        <!-- Картки зображень -->
+      </div>
+
+      <button type="button" class="load-more">Load more</button>
+
+    </div>
+    <p class="policy">&copy;  Pixabay.com 2023</p>
+
+    <script src="/src/js/gallery.js" type="module"></script>
   </body>
 </html>
