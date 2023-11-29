@@ -1,7 +1,7 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
-import createPixabayApiService from './pixaby-api-service';
+import createPixabayApiService from './pixabay';
 
 
 const formEl = document.querySelector('.search-form');
