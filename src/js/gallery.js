@@ -50,7 +50,7 @@ async function onSearch(event) {
 
   async function onLoadMore() {
     try {
-      const imagesArr = await pixabayApiService.fetchImages();
+      const imagesArr = await pixabayApiService.collection();
       renderImages(imagesArr.hits);
       lightbox.refresh();
       const nextPageImages = imagesArr.hits.length;

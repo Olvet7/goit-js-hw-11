@@ -1,17 +1,30 @@
 import axios from 'axios';
 
 const BASE_URL = 'https://pixabay.com/api/';
-const KEY = '40854865-379b4e91125b45648445462a5';
+const API_KEY = '40854865-379b4e91125b45648445462a5';
 
 const createPixabayApiService = () => {
-  let searchQuery = '';
   let page = 1;
+  let searchQuery = '';
 
   const collection = async () => {
-    const response = await axios.get(
-      `${BASE_URL}?key=${KEY}&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${page}`
-    );
-    return response.data;
+    const params = new URLSearchParams({
+      key: API_KEY,
+      q: searchQuery,
+      image_type: 'photo',
+      orientation: 'horizontal',
+      safesearch: true,
+      per_page: 40,
+      page,
+    });
+
+    try {
+      const { data } = await axios.get(`${BASE_URL}?${params}`);
+      return data;
+    } catch (error) {
+      console.error('Error fetching images:', error);
+      throw error;
+    }
   };
 
   const incrementPage = () => {

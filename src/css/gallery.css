@@ -10,7 +10,7 @@ body {
   background-color: #3f56b1;
   justify-content: center;
   align-items: center;
-  margin: 0 0 30px;
+
   padding: 10px 0;
   display: flex;
   top: 0;
@@ -37,6 +37,7 @@ input {
   padding: 10px;
   cursor: pointer;
 }
+
 
 .gallery {
   display: flex;
@@ -72,7 +73,7 @@ img {
 .info {
   justify-content: center;
   align-items: center;
-  padding: 15px;
+  padding: 5px;
   display: flex;
   background: #ffffff;
   border-bottom: 1px solid #eee;
@@ -109,6 +110,7 @@ img {
   bottom: 30px;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .hide {
