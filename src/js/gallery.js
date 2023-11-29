@@ -27,7 +27,7 @@ async function onSearch(event) {
     }
     pixabayApiService.resetPage();
     try {
-      const imagesArr = await pixabayApiService.fetchImages();
+      const imagesArr = await pixabayApiService.collection();
       console.log(imagesArr);
       if (imagesArr.hits.length === 0) {
         Notiflix.Notify.failure(
@@ -41,7 +41,7 @@ async function onSearch(event) {
       clearMarkup();
       renderImages(imagesArr.hits);
       lightbox.refresh();
-      loadMoreBtnHideOne();
+      loadMoreBtnShow();
       pixabayApiService.incrementPage();
     } catch (error) {
       Notiflix.Report.failure(`${error.message}`);
@@ -58,7 +58,7 @@ async function onSearch(event) {
         Notiflix.Notify.info(
           "We're sorry, but you've reached the end of search results."
         );
-        loadMoreBtnOneHide();
+        loadMoreBtnHide();
       }
   
       pixabayApiService.incrementPage();
@@ -114,12 +114,12 @@ function createImageCard({
     loadMoreButtonEl.classList.add('hide');
   }
 
-  function loadMoreBtnHideOne() {
+  function loadMoreBtnShow() {
     loadMoreButtonEl.classList.remove('hide');
     loadMoreButtonEl.classList.add('show');
   }
 
-  function loadMoreBtnOneHide() {
+  function loadMoreBtnHide() {
     loadMoreButtonEl.classList.remove('show');
     loadMoreButtonEl.classList.add('hide');
   }

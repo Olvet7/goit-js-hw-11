@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-const fetchImages = async (searchQuery, page = 1) => {
+const collection = async (searchQuery, page = 1) => {
   const KEY = '40854865-379b4e91125b45648445462a5';
   const perPage = 40;
 
   try {
     const searchParams = new URLSearchParams({
-      key: apiKey,
+      key: KEY,
       q: searchQuery,
       image_type: 'photo',
       orientation: 'horizontal',
@@ -23,4 +23,4 @@ const fetchImages = async (searchQuery, page = 1) => {
   }
 };
 
-export default fetchImages;
+export default collection;

@@ -7,7 +7,7 @@ const createPixabayApiService = () => {
   let searchQuery = '';
   let page = 1;
 
-  const fetchImages = async () => {
+  const collection = async () => {
     const response = await axios.get(
       `${BASE_URL}?key=${KEY}&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${page}`
     );
@@ -29,7 +29,7 @@ const createPixabayApiService = () => {
   };
 
   return {
-    fetchImages,
+    collection,
     incrementPage,
     resetPage,
     get query() {
