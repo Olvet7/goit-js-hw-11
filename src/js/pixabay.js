@@ -1,3 +1,4 @@
+// pixabay.js
 import axios from 'axios';
 
 const BASE_URL = 'https://pixabay.com/api/';
@@ -6,6 +7,7 @@ const API_KEY = '40854865-379b4e91125b45648445462a5';
 const createPixabayApiService = () => {
   let page = 1;
   let searchQuery = '';
+  const perPage = 40;
 
   const collection = async () => {
     const params = new URLSearchParams({
@@ -14,8 +16,8 @@ const createPixabayApiService = () => {
       image_type: 'photo',
       orientation: 'horizontal',
       safesearch: true,
-      per_page: 40,
-      page,
+      per_page: perPage,
+      page: page,
     });
 
     try {
@@ -29,6 +31,7 @@ const createPixabayApiService = () => {
 
   const incrementPage = () => {
     page += 1;
+    return page;
   };
 
   const resetPage = () => {
@@ -41,10 +44,16 @@ const createPixabayApiService = () => {
     searchQuery = newQuery;
   };
 
+  const getPerPage = () => perPage;
+
+  const actualPage = () => page;
+
   return {
     collection,
     incrementPage,
     resetPage,
+    getPerPage,
+    actualPage,
     get query() {
       return getQuery();
     },

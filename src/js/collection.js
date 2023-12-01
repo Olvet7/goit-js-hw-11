@@ -1,8 +1,8 @@
+// collection.js
 import axios from 'axios';
 
-const collection = async (searchQuery, page = 1) => {
+const collection = async (searchQuery, page = 1, perPage = 40) => {
   const KEY = '40854865-379b4e91125b45648445462a5';
-  const perPage = 40;
 
   try {
     const searchParams = new URLSearchParams({
@@ -15,7 +15,7 @@ const collection = async (searchQuery, page = 1) => {
       page: page,
     });
 
-    const { data } = await axios.get(`/?${searchParams}`);
+    const { data } = await axios.get(`${BASE_URL}?${searchParams}`);
     return data;
   } catch (error) {
     console.error('Error fetching images:', error);

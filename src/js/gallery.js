@@ -8,8 +8,9 @@ const formEl = document.querySelector('.search-form');
 const searchButtonEl = document.querySelector('.search-button');
 const loadMoreButtonEl = document.querySelector('.load-more');
 const galleryEl =  document.querySelector('.gallery');
+let page = 1;
 
-loadMoreBtnAdd();
+loadMoreBtnAdd(); 
 
 const pixabayApiService = createPixabayApiService();
 
@@ -30,52 +31,112 @@ async function onSearch(event) {
       const imagesArr = await pixabayApiService.collection();
       const nextPageImages = imagesArr.hits.length;
       console.log(imagesArr);
+      console.log(nextPageImages);
       if (imagesArr.hits.length === 0) {
         Notiflix.Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.'
         );
-        // loadMoreBtnHide();
-        // return;
-      } else if (imagesArr.totalHits > 0) {
-        Notiflix.Notify.success(
-          `Hooray! We found ${imagesArr.totalHits} images.`
-        );
+        loadMoreBtnHide();
       } else if (nextPageImages < 40) {
+        console.log('ololo');
         Notiflix.Notify.info(
           "We're sorry, but you've reached the end of search results."
         );
         loadMoreBtnHide();
-      }
+      } else if (imagesArr.totalHits > 0) {
+        Notiflix.Notify.success(
+          `Hooray! We found ${imagesArr.totalHits} images.`
+        );
+        loadMoreBtnShow();
+      } 
       clearMarkup();
       renderImages(imagesArr.hits);
       lightbox.refresh();
-      // loadMoreBtnShow();
       pixabayApiService.incrementPage();
     } catch (error) {
       Notiflix.Report.failure(`${error.message}`);
     }
   }
 
-async function onLoadMore() {
-  try {
-    const imagesArr = await pixabayApiService.collection();
-    renderImages(imagesArr.hits);
-    lightbox.refresh();
-    const nextPageImages = imagesArr.hits.length;
-
-    if (nextPageImages < 40) {
-      Notiflix.Notify.info(
-        "We're sorry, but you've reached the end of search results."
-      );
-      const buttonToRemove = document.getElementById("loadMoreBtn");
-      buttonToRemove.remove();
-      return;
+  async function onLoadMore() {
+    try {
+      const imagesArr = await pixabayApiService.collection();
+      renderImages(imagesArr.hits);
+      lightbox.refresh();
+      const nextPageImages = imagesArr.hits.length;
+  
+      if (nextPageImages < 40) {
+        Notiflix.Notify.info(
+          "We're sorry, but you've reached the end of search results."
+        );
+        loadMoreBtnHide();
+        return;
+      }
+      pixabayApiService.incrementPage(); 
+      const currentPage = pixabayApiService.actualPage();
+      if (currentPage >= Math.ceil(imagesArr.totalHits / pixabayApiService.getPerPage())) {
+        loadMoreBtnHide();
+      } else {
+        loadMoreBtnShow();
+      } 
+      // const totalDownloadedPages = (page - 1) * pixabayApiService.getPerPage + imagesArr.hits.length;
+      // if (totalDownloadedPages >= imagesArr.totalHits) {
+      //   Notiflix.Notify.info(
+      //     "We're sorry, but you've reached the end of search results."
+      //   );
+  
+      //   // При досягненні останньої сторінки приховати кнопку "Load more"
+      //   loadMoreBtnHide();
+      // } else {
+      //   loadMoreBtnShow();
+      // }
+      // pixabayApiService.incrementPage();
+    } catch (error) {
+      Notiflix.Report.failure(`${error.message}`);
     }
-    pixabayApiService.incrementPage();
-  } catch (error) {
-    Notiflix.Report.failure(`${error.message}`);
   }
-}
+
+  // async function onLoadMore() {
+  //   try {
+  //     pixabayApiService.incrementPage();
+  //     const imagesArr = await pixabayApiService.collection(page);
+  //     renderImages(imagesArr.hits);
+  //     lightbox.refresh();
+  //     const nextPageImages = imagesArr.hits.length;
+  //     console.log(nextPageImages);
+
+  //     const totalPages = Math.ceil(imagesArr.totalHits / pixabayApiService.perPage);
+
+  //     if (page >= totalPages) {
+  //       Notiflix.Notify.info(
+  //         "We're sorry, but you've reached the end of search results."
+  //       );
+  //       loadMoreBtnHide(); 
+  //       return;
+  //     } else {
+  //       loadMoreBtnShow();
+  //     }
+  //     renderImages(imagesArr.hits);
+  //     lightbox.refresh();
+  
+  //     const totalDownloadedPages = (page - 1) * pixabayApiService.perPage + imagesArr.hits.length;
+  //     if (totalDownloadedPages >= imagesArr.totalHits) {
+  //       Notiflix.Notify.info(
+  //         "We're sorry, but you've reached the end of search results."
+  //       );
+  
+  //       const buttonToRemove = document.getElementById("loadMoreBtn");
+  //       if (buttonToRemove) {
+  //         buttonToRemove.remove();
+  //         loadMoreBtnHide();
+  //       }
+  //     } else {
+  //       loadMoreBtnShow();
+  //     }
+  //   } catch (error) {
+  //     Notiflix.Report.failure(`${error.message}`);
+  //   }
+  // }
 
 function createImageCard({
     webformatURL,
@@ -130,7 +191,7 @@ function createImageCard({
   }
 
   function loadMoreBtnHide() {
-    loadMoreButtonEl.classList.remove('show');
-    loadMoreButtonEl.classList.add('hide');
+    loadMoreButtonEl.classList.toggle('hide', true);
+    loadMoreButtonEl.classList.toggle('show', false);
     console.log('ololo');
   }
